@@ -1,0 +1,13 @@
+$ git log
+commit cde02895d9c45e636e7b4b081ea02b9d65349031
+Author: Vereschako Pavel <verpad-2010@mail.ru>
+Date:   Mon Feb 13 21:16:24 2017 +0300
+
+    add status.txt
+
+commit 098784d8aa10b7d5918fc7936d9f63c1bf6ee5ba
+Author: Vereschako Pavel <verpad-2010@mail.ru>
+Date:   Mon Feb 13 21:13:59 2017 +0300
+
+    add .gitignore
+
