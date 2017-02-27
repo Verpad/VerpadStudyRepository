@@ -1,54 +1,62 @@
 #newsName{
-	background-color: lightblue;
-	width: 230px;
-	padding: 10px;
-	position: fixed;
-	border-radius: 5px;
-	float: left;
-	text-align: left;
 	font-size: 20px;
 	font-family: "Arial";
 }
-#user{
+.userField {
 	background-color: lightblue;
-	width: 230px;
+	width: 20%;	/*250px / 1000px*/
 	padding: 10px;
 	position: fixed;
 	border-radius: 5px;
 	float: left;
 	text-align: left;
-	margin-top: 100px;
 }
-
-#news1,#news3,#news5,#news7,#news9{
-	width: 220px;
-	padding: 10px;
-	border: 5px solid gray;
-	margin-left: 400px;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	float: left;
+.news {
+	width: 50%;	/*500px / 1000px*/
+	margin-left: 25%;
+}
+.newsText{
 	border-radius: 5px;
-}
-#news2,#news4,#news6,#news8,#news10{
-	width: 220px;
+	background-color: lightgray;
 	padding: 10px;
-	border: 5px solid gray;
-	margin-left: 50px;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	float: left;
-	border-radius: 5px;
+	border: 2px solid gray;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
-#clearLeft{
+.newsInfo{
+	color: gray;
+	font-size: 14px;
+}
+.newsInfo-left{
+	
+	border-right: 2px solid gray;
+	float: left;
+	padding-right: 10px;
+}
+.newsInfo-right{
+	padding-left: 10px;
+	float: left;
+}
+.newsTitle{
+	font-family: "Arial";
+	font-size: 18px;
+}
+.leftColumn {
+	width: 50%;
+	float: left;
+}
+.rightColumn{
+	width: 50%;
+	float: left;
+}
+.clearLeft{
 	clear: left;
 }
 #filter{
-	margin-left: 80%;
+	margin-left: 77%;
 	background-color: lightblue;
-	width: 230px;
+	width: 20%;	/*250px / 1000px*/
 	padding: 10px;
-	position: fixed;
 	float: right;
 	position: fixed;
 	border-radius: 5px;
