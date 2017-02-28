@@ -3,37 +3,63 @@
 	font-family: "Arial";
 }
 .userField {
-	background-color: lightblue;
-	width: 20%;	/*250px / 1000px*/
+	background-color: white;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	width: 20%;	/*200px / 1000px*/
 	padding: 10px;
 	position: fixed;
-	border-radius: 5px;
+	border-radius: 0px;
 	float: left;
 	text-align: left;
 }
+#filter{
+	margin-top: 20%;
+	background-color: white;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	width: 20%;	/*200px / 1000px*/
+	padding: 10px;
+	float: left;
+	position: fixed;
+	border-radius: 0px;
+}
 .news {
-	width: 50%;	/*500px / 1000px*/
+	width: 75%;	/*500px / 1000px*/
 	margin-left: 25%;
 }
 .newsText{
-	border-radius: 5px;
-	background-color: lightgray;
+	border-radius: 0px;
+	background-color: white;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	padding: 10px;
-	border: 2px solid gray;
+	border: 0px solid gray;
 	margin-right: 10px;
 	margin-bottom: 10px;
+	height: 350px;
+}
+.newsContent {
+	height: 70%;
 }
 .newsInfo{
 	color: gray;
 	font-size: 14px;
 }
+.newsInfo-tags {
+	color: gray;
+	box-shadow: 0 0 3px rgba(0,0,0,1);
+	background: lightgray;
+	font-size: 14px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-left: 5px;
+}
 .newsInfo-left{
-	
+	height: 20%;
 	border-right: 2px solid gray;
 	float: left;
 	padding-right: 10px;
 }
 .newsInfo-right{
+	height: 20%;
 	padding-left: 10px;
 	float: left;
 }
@@ -52,20 +78,12 @@
 .clearLeft{
 	clear: left;
 }
-#filter{
-	margin-left: 77%;
-	background-color: lightblue;
-	width: 20%;	/*250px / 1000px*/
-	padding: 10px;
-	float: right;
-	position: fixed;
-	border-radius: 5px;
-}
 #clearRight{
 	clear: right;
 }
 #footer{
-	background-color: lightblue;
+	background-color: white;
+	box-shadow: 0 0 5px rgba(0,0,0,1);
 	text-align: center;
 	padding: 5px;
 	bottom:0px;
