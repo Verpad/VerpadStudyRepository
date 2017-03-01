@@ -1,3 +1,7 @@
+body {
+	background-color: rgba(255,255,255,1);
+}
+
 #newsName{
 	font-size: 20px;
 	font-family: "Arial";
@@ -13,28 +17,32 @@
 	padding: 10px;
 	border-radius: 0px;
 	text-align: left;
+	width: 100%;
 }
+.userActionText{
+		display: block;
+	}
 #filter{
 	background-color: white;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	padding: 10px;
 	margin-top: 10px;
 	border-radius: 0px;
+	width: 100%;
 }
 .news {
 	width: 75%;	/*500px / 1000px*/
 	margin-left: 25%;
+	max-width:1080px;
 }
 .newsText{
 	border-radius: 0px;
 	background-color: white;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	padding: 10px;
-	border: 0px solid gray;
+	border: 0px ;
 	margin-right: 10px;
 	margin-bottom: 10px;
-	height: auto;
-	max-width:1080px;
 }
 .newsContent {
 	height: 70%;
@@ -92,7 +100,17 @@
 	margin: 0px;
 }
 
-@media (max-width:800px){
+a {
+    color: rgb(0,0,0); /* Цвет обычной ссылки */ 
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+   }
+
+a:hover {
+    color: black;
+    text-decoration: underline; /* Добавляем подчеркивание */
+}
+
+@media (max-width:850px){
 	.news{
 		width: 100%;
 		margin-left: 0%;
@@ -107,11 +125,12 @@
 	}
 	.userColumn{
 		position: fixed;
-		width: 100%;
+		width: 98%;
 		margin: 0px;
 	}
 	.userField {
 		width: 100%;
+		margin: 0px;
 	}
 	#filter {
 		width: 50%;
