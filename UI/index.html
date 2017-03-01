@@ -6,28 +6,30 @@
 			<title>Turbo News</title>
 	</head>
 	<body>
-		<div class="userField">
-			<h1 id = "newsName">Turbo News</h1>
-			<h3><i class="fa fa-user" aria-hidden="true"></i> Имя пользователя</h3>
-			<a href=""><p><i class="fa fa-plus" aria-hidden="true"></i> Добавить новость</p></a>
-			<a href=""><p><i class="fa fa-list" aria-hidden="true"></i> Ваши новости</p></a>
-			<a href=""><p><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</p></a>
-		</div>
-		<div id = "filter">
-			<p><b>Фильтр новостей: </b></p>
-			<p>Имя автора: <input type="text" name="name"> </p>
-			<p>Дата: <input type="datetime-local"></p>
-			<p>Теги: <input list="tags">
-		   <datalist id="tags">
-		    <option>Спорт</option>
-		    <option>Криминал</option>
-		    <option>Путешествия</option>
-		    <option>Природа</option>
-		    <option>Техника</option>
-		    <option>Наука</option>
-		   </datalist>
-		    </p>
-		    <p style="text-align: center"><button>Найти</button>
+		<div class="userColumn">
+			<div class="userField">
+				<h1 id = "newsName">Turbo News</h1>
+				<font class="userActionText"><h3><i class="fa fa-user" aria-hidden="true"></i> Имя пользователя</font></h3>
+				<font class="userActionText"><a href=""><p><i class="fa fa-plus" aria-hidden="true"></i> Добавить новость</font></p></a>
+				<font class="userActionText"><a href=""><p><i class="fa fa-list" aria-hidden="true"></i> Ваши новости</font></p></a>
+				<font class="userActionText"><a href=""><p><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</font></p></a>
+			</div>
+			<font class="userActionText"><div id = "filter">
+				<p><b>Фильтр новостей: </b></p>
+				<p>Имя автора: <input type="text" name="name"> </p>
+				<p>Дата: <input type="datetime-local"></p>
+				<p>Теги: <input list="tags">
+			   <datalist id="tags">
+			    <option>Спорт</option>
+			    <option>Криминал</option>
+			    <option>Путешествия</option>
+			    <option>Природа</option>
+			    <option>Техника</option>
+			    <option>Наука</option>
+			   </datalist>
+			    </p>
+			    <p style="text-align: center"><button>Найти</button>
+			</div></font>
 		</div>
 		<div class="clearLeft"></div>
 		<div class="news">

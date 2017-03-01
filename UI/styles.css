@@ -2,24 +2,23 @@
 	font-size: 20px;
 	font-family: "Arial";
 }
+.userColumn{
+	position: fixed;
+	width: 20%;
+	margin-right: 10px;
+}
 .userField {
 	background-color: white;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
-	width: 20%;	/*200px / 1000px*/
 	padding: 10px;
-	position: fixed;
 	border-radius: 0px;
-	float: left;
 	text-align: left;
 }
 #filter{
-	margin-top: 20%;
 	background-color: white;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
-	width: 20%;	/*200px / 1000px*/
 	padding: 10px;
-	float: left;
-	position: fixed;
+	margin-top: 10px;
 	border-radius: 0px;
 }
 .news {
@@ -34,10 +33,13 @@
 	border: 0px solid gray;
 	margin-right: 10px;
 	margin-bottom: 10px;
-	height: 350px;
+	height: auto;
+	max-width:1080px;
 }
 .newsContent {
 	height: 70%;
+	font-family:"Times New Roman";
+	font-size:1.125em;
 }
 .newsInfo{
 	color: gray;
@@ -50,7 +52,7 @@
 	font-size: 14px;
 	padding-left: 5px;
 	padding-right: 5px;
-	margin-left: 5px;
+	margin: 5px;
 }
 .newsInfo-left{
 	height: 20%;
@@ -65,7 +67,7 @@
 }
 .newsTitle{
 	font-family: "Arial";
-	font-size: 18px;
+	font-size: 1.125em;
 }
 .leftColumn {
 	width: 50%;
@@ -88,4 +90,48 @@
 	padding: 5px;
 	bottom:0px;
 	margin: 0px;
+}
+
+@media (max-width:800px){
+	.news{
+		width: 100%;
+		margin-left: 0%;
+	}
+	.leftColumn {
+		margin-top: 100px;
+		width: 100%;
+	}
+	.rightColumn{
+		margin-top: 100px;
+		width: 100%;
+	}
+	.userColumn{
+		position: fixed;
+		width: 100%;
+		margin: 0px;
+	}
+	.userField {
+		width: 100%;
+	}
+	#filter {
+		width: 50%;
+		margin-top: 0px;
+	}
+	.userActionText{
+		display: none;
+	}
+}
+
+@media (max-width:400px) {
+	.newsInfo-left{
+		height: 20%;
+		border-right: 0px solid gray;
+		text-align: center;
+		width: 100%;
+	}
+	.newsInfo-right{
+		height: 20%;
+		text-align: center;
+		width: 100%;
+	}
 }
