@@ -1,5 +1,5 @@
 body {
-	background-color: rgba(255,255,255,1);
+	background-color: #F7F1BB;
 }
 
 #newsName{
@@ -12,7 +12,7 @@ body {
 	margin-right: 10px;
 }
 .userField {
-	background-color: white;
+	background-color: lightyellow;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	padding: 10px;
 	border-radius: 0px;
@@ -23,7 +23,7 @@ body {
 		display: block;
 	}
 #filter{
-	background-color: white;
+	background-color: lightyellow;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	padding: 10px;
 	margin-top: 10px;
@@ -37,7 +37,7 @@ body {
 }
 .newsText{
 	border-radius: 0px;
-	background-color: white;
+	background-color: lightyellow;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	padding: 10px;
 	border: 0px ;
@@ -92,7 +92,7 @@ body {
 	clear: right;
 }
 #footer{
-	background-color: white;
+	background-color: lightyellow;
 	box-shadow: 0 0 5px rgba(0,0,0,1);
 	text-align: center;
 	padding: 5px;
