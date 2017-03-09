@@ -3,7 +3,7 @@ var articles = [
 		id: "1",
 		title: "Министр внутренних дел рассказал, что центры для незаконных мигрантов будут созданы в Витебске, Гомеле и Лиде",
 		summary: "В интервью корреспонденту БЕЛТА министр внутренних дел Игорь Шуневич коснулся вопросов незаконной миграции.",
-		createdAt: new Date("2017-05-02T19:23:00"),
+		createdAt: new Date("2017-02-05T19:23:00"),
 		author: "Всезнайка",
 		content: "В интервью корреспонденту БЕЛТА министр внутренних дел Игорь Шуневич коснулся вопросов незаконной миграции. Говоря о реальной цели въезда в Беларусь большинства «пропавших» студентов из Бангладеш, чиновник указал последующую миграцию в Евросоюз.",
 		tags: ["мигранты","проблемы"]
@@ -15,7 +15,7 @@ var articles = [
 		createdAt: new Date("2017-02-10T19:50:00"),
 		author: "Осведомитель",
 		content: "Круглую железную коробку нашли в гараже — в одном из сотен тысяч, построенных в республике под названием БССР. Рельефная надпись «Свема» (светочувствительные материалы) выдавала ее назначение. Конечно, пленка! На первых прямоугольниках-кадрах на просвет виднелась надпись «Фильм создан любительской киностудией при ГАИ», далее — снимки с мест ДТП. О чем же рассказывает эта пленка?",
-		tags: ["мигранты","проблемы"]
+		tags: ["находки","репортаж"]
 	},
 	{
 		id: "3",
@@ -24,7 +24,7 @@ var articles = [
 		createdAt: new Date("2017-02-11T19:40:00"),
 		author: "Око",
 		content: "Китайская компания Oppo анонсировала на MWC 2017 технологию для мобильных камер, позволяющую реализовать в смартфонах фотомодуль с 5-кратным оптическим зумом. Как утверждают в Oppo, приближение не скажется на качестве изображения, которое сохранит все свои характеристики.",
-		tags: ["мигранты","проблемы"]
+		tags: ["смартфоны","техника"]
 	},
 	{
 		id: "4",
@@ -33,7 +33,7 @@ var articles = [
 		createdAt: new Date("2017-02-07T15:23:00"),
 		author: "Неизвестный",
 		content: "Пользователь форума Onliner.by уверен, что многие ДТП происходят из-за ограничений скорости. «Ограничения скорости — это вообще бред и абсурд… Их следует убрать вообще из ПДД», — считает он. По словам автомобилиста, если бы скорость передвижения транспорта на дорогах не ограничивалась, то водители всегда были бы внимательнее и «ДТП не было бы вообще!»",
-		tags: ["мигранты","проблемы"]
+		tags: ["дтп","автомобили"]
 	},
 	{
 		id: "5",
@@ -42,7 +42,7 @@ var articles = [
 		createdAt: new Date("2017-02-20T09:25:00"),
 		author: "Почемучка",
 		content: "«Желающих выучиться на врача пруд пруди. Они что, не представляют, куда идут и на что подписываются? Или у них в мечтах только чистенький белый халатик, личный кабинетик, медсестра под боком и улыбающийся пациент? Они рассчитывали со студенческой скамьи на почет и лавры седовласого профессора, а оказалось, что нужно пахать», — прокомментировала пользовательница форума Onliner.by жалобы некоторых врачей.",
-		tags: ["мигранты","проблемы"]
+		tags: ["врачи","обучение"]
 	},
 	{
 		id: "6",
@@ -51,7 +51,7 @@ var articles = [
 		createdAt: new Date("2017-02-19T12:45:00"),
 		author: "Анонимус",
 		content: "Исследования «Лучший регион Беларуси для ведения бизнеса индивидуальными предпринимателями» РОО «Перспектива» проводит с 2009 года, собирая статистику и проводя анкетирование представителей малого бизнеса.",
-		tags: ["мигранты","проблемы"]
+		tags: ["бизнес","исследования"]
 	},
 	{
 		id: "7",
@@ -60,7 +60,7 @@ var articles = [
 		createdAt: new Date("2017-02-17T09:20:00"),
 		author: "Всезнайка",
 		content: "33-летний гродненец вечером пил у себя дома пиво, — кратко описали обстоятельства происшествия в ГАИ Гродненской области. — А следующим утром повез на Mazda детей в детсад. Автомобиль двигался в правой полосе». Когда на пешеходный переход вышла женщина с ребенком, он не успел среагировать.",
-		tags: ["мигранты","проблемы"]
+		tags: ["происшествия","дтп"]
 	},
 	{
 		id: "8",
@@ -94,7 +94,7 @@ var articles = [
 		title: "10 интересных фактов из истории космонавтики, о которых вы не знали",
 		summary: "Космонавт — одна из самых опасных профессий, доступных современному человеку.",
 		createdAt: new Date("2017-05-02T19:23:00"),
-		author: "",
+		author: "Вездесущий",
 		content: "Космонавт — одна из самых опасных профессий, доступных современному человеку. Но в абсолютных цифрах она таковой не выглядит: за 56 лет истории пилотируемой космонавтики и после более чем 500 полетов на низкую орбиту и к Луне известно всего 5 инцидентов, которые закончились жертвами. Такие цифры — результат того, что космонавтика также является одной из самых серьезных профессий, где свято чтут технику безопасности и понимают значение огромного количества предварительных проверок.\nКосмонавты учатся крайне долго, и совсем не факт, что вы когда-нибудь все же полетите в космос, а не останетесь на Земле в качестве инструктора или сотрудника ЦУП. Но то, что от работы космонавтов в некоторой степени зависит будущее человеческого вида и наша судьба в космосе, не значит, что и они не могут немного повеселиться. После небольшого исследования мы собрали забавные ситуации и истории о некоторых космических миссиях. В следующий раз, вглядываясь в звезды и удивляясь бесконечности возможностей космоса, разрешите себе немного посмеяться над этими интересными и иногда забавными моментами на пути к космическому просветлению человечества.",
 		tags: ["мигранты","проблемы"]
 	},
@@ -201,52 +201,78 @@ var articles = [
 
 var tags = [
 	"автомобили", "недвижимость", "проблемы", "наука", "интересное",
-	"ДТП", "здоровье", "алкоголь", "бизнес", "мигранты"
+	"дтп", "здоровье", "алкоголь", "бизнес", "мигранты", "смартфоны",
+	"врачи", "обучение", "исследования", "происшествия"
 ];
 
-function compareDate(a,b) {
-	if (a.createdAt < b.createdAt){
-		return 1;
-	}else if(a.createdAt >= b.createdAt){
-		return -1;
+function compareDate(articleDate,DateBot,DateTop) {
+	if(articleDate.getTime() > DateBot.getTime()){
+		if(articleDate.getTime() < DateTop.getTime()){
+			return true;
+		}
 	}else{
-		return 0;
+		return false;
 	}
 }
 
-function containsTag(tagsContainer,tagsContainable){
+function DateSort(article1,article2){
+	if(article1.createdAt.getTime() >= article2.createdAt.getTime()){
+		return 1;
+	}else{
+		return -1;
+	}
+}
+
+function containTags(tagsContainer,tagsContainable){
+		if(tagsContainable.length == 0){
+			return true;
+		}
 		for ( var g = 0 ; g < tagsContainable.length; g++){
-			if(tagsContainer.indexOf(tagsContainable[g].toLowerCase()) > 0){
-				return true;
+			if(tagsContainer.indexOf(tagsContainable[g].toLowerCase()) < 0){
+				return false;
 			}
 		}
-	return false;
+	return true;
+}
+
+function compareAuthors(author1,author2){
+	if (author2 == "" || author2.toLowerCase() == author1.toLowerCase()){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 function getArticles(skip,top,filterConfig,articles) {
+
 	skip = skip || 0;
-	top = top || 3;
-	filterConfig = filterConfig || null;
-	filterConfig.tags = filterConfig.tags || [];
-	filterConfig.createdAt = filterConfig.createdAt || new Date("0000-00-00T00:00:00");
+	top = top || 10;
 
 	var sortedArticles = [];
 
+	if(filterConfig == null){
+		sortedArticles = articles.slice(skip,skip+top);
+		sortedArticles.sort(DateSort);
+		return sortedArticles;
+	}
+
+	filterConfig.tags = filterConfig.tags || [];
+	filterConfig.author = filterConfig.author || "";
+	filterConfig.timeBot = filterConfig.timeBot || new Date("1900-01-01T10:00:00");
+	filterConfig.timeTop = filterConfig.timeTop || new Date();
+
 	for(var i = 0; i < articles.length; i++){
-		if( articles[i].id == filterConfig.id ||
-			articles[i].title == filterConfig.title ||
-			articles[i].summary == filterConfig.summary ||
-			articles[i].createdAt.getTime() == filterConfig.createdAt.getTime() ||
-			articles[i].author	 == filterConfig.author	 ||
-			articles[i].content	 == filterConfig.content ||
-			containsTag(articles[i].tags,filterConfig.tags)) {
+		/////////фильтр одновременно по дате автору и тегам
+		if(	compareDate(articles[i].createdAt,filterConfig.timeBot,filterConfig.timeTop) &&
+			compareAuthors(articles[i].author,filterConfig.author) &&
+			containTags(articles[i].tags,filterConfig.tags)) {
 			sortedArticles.push(articles[i]);
 		}
 	}
 
 	sortedArticles = sortedArticles.slice(skip,skip+top);
 
-	sortedArticles.sort(compareDate);
+	sortedArticles.sort(DateSort);
 
 	return sortedArticles;
 }
@@ -335,6 +361,7 @@ function removeTag(tagToDelete,tags){
 }
 
 
+/************************************ */
 
 
 console.log(articles);
@@ -342,7 +369,7 @@ console.log(tags);
 console.log(addTag("девушки",tags));
 console.log(addTag("девушки",tags));
 console.log(getArticles(0,3,{author: "Всезнайка"},articles));
-console.log(getArticles(0,3,{createdAt: new Date("2017-02-11T19:40:00")},articles));
+console.log(getArticles(0,3,null,articles));
 console.log(getArticles(0,5,{tags: ["мигранты","проблемы"]},articles));
 
 console.log(removeArticle("1",articles));
