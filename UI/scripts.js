@@ -409,6 +409,7 @@ var articleRenderer = (function() {
         template.content.querySelector(".news-article-info-data").textContent = formatDate(article.createdAt);
         var tags =  template.content.querySelector(".news-article-info-tags");
         tags.innerHTML = "";
+
         for(var i = 0 ; i < article.tags.length ; i++){
         	var tag = document.createElement("font");
         	tag.innerHTML = "<font class='news-article-tag'>" + article.tags[i]+"</font>";
@@ -461,6 +462,24 @@ function renderArticles(skip,top) {
     var articles = articleModel.getArticles(skip,top,null);
 
     articleRenderer.insertArticlesInDOM(articles);
+}
+
+function userRenderer(userName){
+	if(userName == null){
+		var userField = document.getElementsByClassName("username");
+		userField[1].innerHTML = '<h3><i class="fa fa-user" aria-hidden="true"></i> Гость</font></h3>';
+		userField = document.getElementsByClassName("userActionText");
+		for(var i = 0 ; i < userField.length ; i++){
+			userField[i].style.display = "none";
+		}
+	}else{
+		var userField = document.getElementsByClassName("username");
+		userField[1].innerHTML = '<h3><i class="fa fa-user" aria-hidden="true"></i> '+ userName +'</font></h3>';
+		userField = document.getElementsByClassName("userActionText");
+		for(var i = 0 ; i < userField.length ; i++){
+			userField[i].style.display = "";
+		}
+	}
 }
 
 

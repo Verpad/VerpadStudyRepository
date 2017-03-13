@@ -12,10 +12,10 @@
 		<div class="userColumn">
 			<div class="userField">
 				<h1 id = "newsName"><img src="favicon.ico" alt="Иконка)))">Turbo News</h1>
-				<font class="userActionText"><h3><i class="fa fa-user" aria-hidden="true"></i> Имя пользователя</font></h3>
-				<font class="userActionText"><a href=""><p><i class="fa fa-plus" aria-hidden="true"></i> Добавить новость</font></p></a>
-				<font class="userActionText"><a href=""><p><i class="fa fa-list" aria-hidden="true"></i> Ваши новости</font></p></a>
-				<font class="userActionText"><a href=""><p><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</font></p></a>
+				<font class="username"><h3><i class="fa fa-user" aria-hidden="true"></i> Имя пользователя</font></h3>
+				<font id="addnews" class="userActionText"><a href=""><p><i class="fa fa-plus" aria-hidden="true"></i> Добавить новость</font></p></a>
+				<font id="yournews" class="userActionText"><a href=""><p><i class="fa fa-list" aria-hidden="true"></i> Ваши новости</font></p></a>
+				<font id="quit" class="userActionText"><a href=""><p><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</font></p></a>
 			</div>
 			<font class="userActionText"><div id = "filter">
 				<p><b>Фильтр новостей: </b></p>
@@ -58,6 +58,10 @@
 					<p class = "news-article-info-data newsInfo">дата</p>
 				</div>
 				<div class="news-article-info-tags">
+				</div>
+				<div class="article-actions userActionText">
+					<i class="fa fa-pencil" aria-hidden="true"></i>
+					<i class="fa fa-trash-o" aria-hidden="true"></i>
 				</div>
 				<div class="clearLeft"></div>
 			</div>
