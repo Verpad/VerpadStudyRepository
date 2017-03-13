@@ -1,4 +1,5 @@
-var articles = [
+var articleModel = (function() {
+	var articles = [
 	{
 		id: "1",
 		title: "Министр внутренних дел рассказал, что центры для незаконных мигрантов будут созданы в Витебске, Гомеле и Лиде",
@@ -75,7 +76,7 @@ var articles = [
 		id: "9",
 		title: "Затерянный мир: как и чем живут на самом отдаленном от цивилизации острове планеты",
 		summary: "Как и чем живет затерянный под ревущими ветрами город, почти все обитатели которого приходятся друг другу родственниками",
-		createdAt: new Date("2017-02-01T19:05:00"),
+		createdAt: new Date("2017-02-01T19:05:10"),
 		author: "Осведомитель",
 		content: "Представьте себе, что живете вы в деревне на 250 душ, под домом действующий вулкан, из хозяйства — поле с картошкой, корова да несколько овец, а до ближайшего очага человеческой цивилизации немыслимые две тысячи километров и пять дней ходу на сейнере по бурному океану. Как и чем живет затерянный под ревущими ветрами город, почти все обитатели которого приходятся друг другу родственниками, в обзоре Onliner.by.",
 		tags: ["мигранты","проблемы"]
@@ -196,34 +197,162 @@ var articles = [
 		author: "Неизвестный",
 		content: "Трехэтажный дом №109 на проспекте Независимости, жильцы которого на протяжении нескольких лет вели борьбу против надстройки мансардных этажей, включен в план капитального ремонта на 2017 год. При этом модернизация будет проведена без увеличения этажности здания. Об этом сообщается в пресс-релизе оргкомитета общественного объединения «Экоград». Решение отказаться от надстройки Минстройархитектуры объясняет необходимостью сохранения уникальной исторической застройки.",
 		tags: ["мигранты","проблемы"]
-	},
-];
+	}];
 
-var tags = [
-	"автомобили", "недвижимость", "проблемы", "наука", "интересное",
-	"дтп", "здоровье", "алкоголь", "бизнес", "мигранты", "смартфоны",
-	"врачи", "обучение", "исследования", "происшествия"
-];
+	function getArticles(skip,top,filterConfig) {
 
-function compareDate(articleDate,DateBot,DateTop) {
-	if(articleDate.getTime() > DateBot.getTime()){
-		if(articleDate.getTime() < DateTop.getTime()){
-			return true;
+		skip = skip || 0;
+		top = top || 10;
+
+		var sortedArticles = [];
+
+		if(filterConfig == null){
+			sortedArticles = articles.slice(skip,skip+top);
+			sortedArticles.sort(DateSort);
+			return sortedArticles;
 		}
-	}else{
-		return false;
-	}
-}
 
-function DateSort(article1,article2){
-	if(article1.createdAt.getTime() >= article2.createdAt.getTime()){
-		return 1;
-	}else{
-		return -1;
-	}
-}
+		filterConfig.tags = filterConfig.tags || [];
+		filterConfig.author = filterConfig.author || "";
+		filterConfig.timeBot = filterConfig.timeBot || new Date("1900-01-01T10:00:00");
+		filterConfig.timeTop = filterConfig.timeTop || new Date();
 
-function containTags(tagsContainer,tagsContainable){
+		for(var i = 0; i < articles.length; i++){
+			//фильтр одновременно по дате автору и тегам
+			if(	compareDate(articles[i].createdAt,filterConfig.timeBot,filterConfig.timeTop) &&
+				compareAuthors(articles[i].author,filterConfig.author) &&
+				tagModel.containTags(articles[i].tags,filterConfig.tags)) {
+				sortedArticles.push(articles[i]);
+			}
+		}
+
+		sortedArticles = sortedArticles.slice(skip,skip+top);
+
+		sortedArticles.sort(DateSort);
+
+		return sortedArticles;
+	}
+
+	function getArticle(yourId) {
+		for (var i = 0; i < articles.length; i++) {
+			if(articles[i].id == yourId){
+				return articles[i];
+			}
+		}
+		return null;
+	}
+
+	function validateArticle(article){
+		if( article.id != undefined &&
+			article.title.length > 0 && article.title.length < 100 &&
+			article.summary.length > 0 && article.summary.length < 200 &&
+			article.createdAt != undefined &&
+			article.author.length > 0 &&
+			article.content.length > 0 &&
+			tagModel.validateTags(article.tags) && article.tags.length > 0 ) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	function addArticle(newArticle) {
+		if(validateArticle(newArticle)){
+			articles.push(newArticle);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function editArticle(id,newArticle){
+		var oldArticle = getArticle(id);
+		newArticle.id = oldArticle.id;
+		newArticle.createdAt = oldArticle.createdAt;
+		newArticle.author = oldArticle.author;
+		if(validateArticle(newArticle)){
+			oldArticle.title = newArticle.title;
+			oldArticle.summary = newArticle.summary;
+			oldArticle.content = newArticle.content;
+			oldArticle.tags = newArticle.tags;
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function removeArticle(idToDelete){
+		for (var i = 0; i < articles.length; i++) {
+			if(articles[i].id == idToDelete){
+				articles.splice(i,1);
+			}
+		}
+	}
+
+	function compareDate(articleDate,DateBot,DateTop) {
+		if(articleDate.getTime() > DateBot.getTime()){
+			if(articleDate.getTime() < DateTop.getTime()){
+				return true;
+			}
+		}else{
+			return false;
+		}
+	}
+
+	function DateSort(article1,article2) {
+		if(article1.createdAt.getTime() >= article2.createdAt.getTime()){
+			return 1;
+		}else{
+			return -1;
+		}
+	}
+
+	function compareAuthors(author1,author2) {
+		if (author2 == "" || author2.toLowerCase() == author1.toLowerCase()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	return {
+		getArticles: getArticles,
+		addArticle: addArticle,
+		editArticle: editArticle,	
+		removeArticle: removeArticle,
+		getArticle: getArticle
+	};
+}())
+
+var tagModel = (function() {
+	var tags = [
+		"автомобили", "недвижимость", "проблемы", "наука", "интересное",
+		"дтп", "здоровье", "алкоголь", "бизнес", "мигранты", "смартфоны",
+		"врачи", "обучение", "исследования", "происшествия"
+	];
+
+	function getTags(){
+		return tags;
+	}
+
+	function addTag(newTag){
+		if(tags.indexOf(newTag.toLowerCase()) < 0){
+			tags.push(newTag.toLowerCase());
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function removeTag(tagToDelete){
+		for (var i = 0; i < tags.length; i++) {
+			if(tags[i] == tagToDelete.toLowerCase()){
+				tags.splice(i,1);
+			}
+		}
+	}
+
+	function containTags(tagsContainer,tagsContainable){
 		if(tagsContainable.length == 0){
 			return true;
 		}
@@ -232,149 +361,125 @@ function containTags(tagsContainer,tagsContainable){
 				return false;
 			}
 		}
-	return true;
-}
-
-function compareAuthors(author1,author2){
-	if (author2 == "" || author2.toLowerCase() == author1.toLowerCase()){
 		return true;
-	}else{
-		return false;
-	}
-}
-
-function getArticles(skip,top,filterConfig,articles) {
-
-	skip = skip || 0;
-	top = top || 10;
-
-	var sortedArticles = [];
-
-	if(filterConfig == null){
-		sortedArticles = articles.slice(skip,skip+top);
-		sortedArticles.sort(DateSort);
-		return sortedArticles;
 	}
 
-	filterConfig.tags = filterConfig.tags || [];
-	filterConfig.author = filterConfig.author || "";
-	filterConfig.timeBot = filterConfig.timeBot || new Date("1900-01-01T10:00:00");
-	filterConfig.timeTop = filterConfig.timeTop || new Date();
-
-	for(var i = 0; i < articles.length; i++){
-		/////////фильтр одновременно по дате автору и тегам
-		if(	compareDate(articles[i].createdAt,filterConfig.timeBot,filterConfig.timeTop) &&
-			compareAuthors(articles[i].author,filterConfig.author) &&
-			containTags(articles[i].tags,filterConfig.tags)) {
-			sortedArticles.push(articles[i]);
+	function validateTags(tagsToValidate){
+		for (var i = 0; i < tagsToValidate.length; i++) {
+			if(tags.indexOf(tagsToValidate[i]) < 0){
+				return false;
+			}
 		}
-	}
-
-	sortedArticles = sortedArticles.slice(skip,skip+top);
-
-	sortedArticles.sort(DateSort);
-
-	return sortedArticles;
-}
-
-function getArticle(yourId,articles) {
-	for (var i = 0; i < articles.length; i++) {
-		if(articles[i].id == yourId){
-			return articles[i];
-		}
-	}
-	return null;
-}
-
-function validateArticle(article,tags){
-	if( article.id != undefined &&
-		article.title.length > 0 && article.title.length < 100 &&
-		article.summary.length > 0 && article.summary.length < 200 &&
-		article.createdAt != undefined &&
-		article.author.length > 0 &&
-		article.content.length > 0 &&
-		validateTags(article.tags,tags) && article.tags.length > 0 ) {
 		return true;
-	}else {
-		return false;
 	}
+	return{
+		getTags: getTags,
+		addTag: addTag,
+		removeTag: removeTag,
+		validateTags: validateTags,
+		containTags: containTags
+	};
+}())
+
+var articleRenderer = (function() {
+	var ARTICLE_TEMPLATE;
+	var ARTICLE_PLACE;
+
+	function init(){
+		ARTICLE_TEMPLATE = document.querySelector("#template-article");
+        ARTICLE_PLACE = document.querySelector(".news-column");
+	}
+
+	function renderArticles(articles) {
+        return articles.map(function (article) {
+            return renderArticle(article);
+        });
+    }
+
+    function removeArticlesFromDom () {
+        ARTICLE_PLACE.innerHTML = "";
+    }
+
+    function renderArticle(article) {
+        var template = ARTICLE_TEMPLATE;
+        template.content.querySelector(".news-article").dataset.id = article.id;
+        template.content.querySelector(".news-article-body-title").textContent = article.title;
+        template.content.querySelector(".news-article-body-summary").textContent = article.summary;
+        template.content.querySelector(".news-article-info-author").textContent = article.author;
+        template.content.querySelector(".news-article-info-data").textContent = formatDate(article.createdAt);
+        var tags =  template.content.querySelector(".news-article-info-tags");
+        tags.innerHTML = "";
+        for(var i = 0 ; i < article.tags.length ; i++){
+        	var tag = document.createElement("font");
+        	tag.innerHTML = "<font class='news-article-tag'>" + article.tags[i]+"</font>";
+        	tags.appendChild(tag);
+        }
+
+        return template.content.querySelector(".news-article").cloneNode(true);
+    }
+
+    function formatDate(date) {
+    	var day = date.getDate();
+    	var month = date.getMonth() + 1;
+    	if(day < 10){
+    		day = "0" + day;
+    	}
+    	if(month < 10){
+    		month = "0" + month;
+    	}
+        return day + '.' + (month) + '.' + date.getFullYear() + ' ' +
+            date.getHours() + ':' + date.getMinutes();
+    }
+
+    function insertArticlesInDOM(articles) {
+        var articlesNodes = renderArticles(articles);
+        articlesNodes.forEach(function (node) {
+            ARTICLE_PLACE.appendChild(node);
+        });
+    }
+
+    return {
+        init: init,
+        insertArticlesInDOM: insertArticlesInDOM,
+        removeArticlesFromDom: removeArticlesFromDom
+    };
+}())
+
+
+
+document.addEventListener('DOMContentLoaded', startApp);
+
+
+function startApp() {
+    articleRenderer.init();
+    renderArticles();
 }
 
-function validateTags(tagsToValidate,tags){
-	for (var i = 0; i < tagsToValidate.length; i++) {
-		if(tags.indexOf(tagsToValidate[i]) < 0){
-			return false;
-		}
-	}
-	return true;
+function renderArticles(skip,top) {
+    articleRenderer.removeArticlesFromDom();
+
+    var articles = articleModel.getArticles(skip,top,null);
+
+    articleRenderer.insertArticlesInDOM(articles);
 }
 
-function addArticle(newArticle,articles,tags) {
 
-	if(validateArticle(newArticle,tags)){
-		articles.push(newArticle);
-		return true;
-	}else{
-		return false;
-	}
-}
-
-function editArticle(id,newArticle,articles,tags){
-	var oldArticle = getArticle(id,articles);
-	newArticle.id = oldArticle.id;
-	newArticle.createdAt = oldArticle.createdAt;
-	newArticle.author = oldArticle.author;
-	if(validateArticle(newArticle,tags)){
-		oldArticle.title = newArticle.title;
-		oldArticle.summary = newArticle.summary;
-		oldArticle.content = newArticle.content;
-		oldArticle.tags = newArticle.tags;
-		return true;
-	}else{
-		return false;
-	}
-}
-
-function removeArticle(idToDelete,articles){
-	for (var i = 0; i < articles.length; i++) {
-		if(articles[i].id == idToDelete){
-			articles.splice(i,1);
-		}
-	}
-}
-
-function addTag(newTag,tags){
-	if(tags.indexOf(newTag.toLowerCase()) < 0){
-		tags.push(newTag.toLowerCase());
-		return true;
-	}else{
-		return false;
-	}
-}
-
-function removeTag(tagToDelete,tags){
-	for (var i = 0; i < tags.length; i++) {
-		if(tags[i] == tagToDelete.toLowerCase()){
-			tags.splice(i,1);
-		}
-	}
-}
 
 
 /************************************ */
 
 
-console.log(articles);
-console.log(tags);
-console.log(addTag("девушки",tags));
-console.log(addTag("девушки",tags));
-console.log(getArticles(0,3,{author: "Всезнайка"},articles));
-console.log(getArticles(0,3,null,articles));
-console.log(getArticles(0,5,{tags: ["мигранты","проблемы"]},articles));
+console.log(articleModel.getArticles(0,10,null));
+console.log(tagModel.getTags());
+console.log(tagModel.addTag("девушки"));
+console.log(tagModel.addTag("девушки"));
+console.log(articleModel.getArticles(0,3,{author: "Всезнайка"}));
+console.log(articleModel.getArticles(0,3,null));
+console.log(articleModel.getArticles(0,5,{tags: ["мигранты","проблемы"]}));
 
-console.log(removeArticle("1",articles));
-console.log(articles);
-console.log(addArticle({
+console.log(articleModel.removeArticle("1"));
+console.log(articleModel.getArticles(0,10,null));
+console.log(articleModel.addArticle({
 		id: "1",
 		title: "Министр внутренних дел рассказал, что центры для незаконных мигрантов будут созданы в Витебске...",
 		summary: "В интервью корреспонденту БЕЛТА министр внутренних дел Игорь Шуневич коснулся вопросов незаконной миграции.",
@@ -382,11 +487,11 @@ console.log(addArticle({
 		author: "Всезнайка",
 		content: "В интервью корреспонденту БЕЛТА министр внутренних дел Игорь Шуневич коснулся вопросов незаконной миграции. Говоря о реальной цели въезда в Беларусь большинства «пропавших» студентов из Бангладеш, чиновник указал последующую миграцию в Евросоюз.",
 		tags: ["мигранты","проблемы"]
-	},articles,tags));
-console.log(editArticle("1",{
+	}));
+console.log(articleModel.editArticle("1",{
 	title: "NewTitle",
 	summary: "NewSummary",
 	content: "NewContent",
 	tags: ["проблемы"]
-},articles,tags));
-console.log(getArticle("1",articles));
+}));
+console.log(articleModel.getArticle("1"));
