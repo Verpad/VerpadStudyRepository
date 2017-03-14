@@ -439,10 +439,27 @@ var articleRenderer = (function() {
         });
     }
 
+    function removeArticleFromDOM(id){
+    	articleModel.removeArticle(id);
+    	for(var i = 0 ; i < ARTICLE_PLACE.childNodes.length; i++){
+    		if(ARTICLE_PLACE.childNodes[i].dataset.id == id){
+    			ARTICLE_PLACE.removeChild(ARTICLE_PLACE.childNodes[i]);
+    		}
+    	}
+    }
+
+    function insertArticleInDOM(article){
+    	var newArticleNode = renderArticle(article);
+    	ARTICLE_PLACE.appendChild(newArticleNode);
+    }
+
+
     return {
         init: init,
         insertArticlesInDOM: insertArticlesInDOM,
-        removeArticlesFromDom: removeArticlesFromDom
+        removeArticlesFromDom: removeArticlesFromDom,
+        removeArticleFromDOM: removeArticleFromDOM,
+        insertArticleInDOM: insertArticleInDOM
     };
 }())
 
@@ -456,12 +473,23 @@ function startApp() {
     renderArticles();
 }
 
-function renderArticles(skip,top) {
+function renderArticles(skip,top,filterConfig) {
     articleRenderer.removeArticlesFromDom();
 
-    var articles = articleModel.getArticles(skip,top,null);
+    var articles = articleModel.getArticles(skip,top,filterConfig);
 
     articleRenderer.insertArticlesInDOM(articles);
+}
+
+function addArticle(article){
+	if(articleModel.addArticle(article)){
+		articleRenderer.insertArticleInDOM(article);
+	}
+}
+
+function removeArticle(id){
+	articleModel.removeArticle(id);
+	articleRenderer.removeArticleFromDOM(id);
 }
 
 function userRenderer(userName){
@@ -502,7 +530,7 @@ console.log(articleModel.addArticle({
 		id: "1",
 		title: "Министр внутренних дел рассказал, что центры для незаконных мигрантов будут созданы в Витебске...",
 		summary: "В интервью корреспонденту БЕЛТА министр внутренних дел Игорь Шуневич коснулся вопросов незаконной миграции.",
-		createdAt: new Date("2017-05-02T19:23:00"),
+		createdAt: new Date("2017-02-03T19:23:00"),
 		author: "Всезнайка",
 		content: "В интервью корреспонденту БЕЛТА министр внутренних дел Игорь Шуневич коснулся вопросов незаконной миграции. Говоря о реальной цели въезда в Беларусь большинства «пропавших» студентов из Бангладеш, чиновник указал последующую миграцию в Евросоюз.",
 		tags: ["мигранты","проблемы"]
