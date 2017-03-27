@@ -285,8 +285,10 @@ var articleModel = (function() {
 		for (var i = 0; i < articles.length; i++) {
 			if(articles[i].id == idToDelete){
 				articles.splice(i,1);
+				return true;
 			}
-		}
+		}	
+		return false;
 	}
 
 	function compareDate(articleDate,DateBot,DateTop) {
@@ -384,10 +386,20 @@ var tagModel = (function() {
 var articleRenderer = (function() {
 	var ARTICLE_TEMPLATE;
 	var ARTICLE_PLACE;
+	var FULL_ARTICLE_PLACE;
+	var articleListNode;
+	var userField;
 
 	function init(){
 		ARTICLE_TEMPLATE = document.querySelector("#template-article");
         ARTICLE_PLACE = document.querySelector(".news-column");
+        FULL_ARTICLE_PLACE = document.querySelector(".news");
+
+        articleListNode = document.querySelector('.news');
+		articleListNode.addEventListener('click', handleBtnClick);
+
+		userField = articleListNode = document.querySelector('.userField');
+		userField.addEventListener('click', userBtnClick);
 	}
 
 	function renderArticles(articles) {
@@ -440,7 +452,6 @@ var articleRenderer = (function() {
     }
 
     function removeArticleFromDOM(id){
-    	articleModel.removeArticle(id);
     	for(var i = 0 ; i < ARTICLE_PLACE.childNodes.length; i++){
     		if(ARTICLE_PLACE.childNodes[i].dataset.id == id){
     			ARTICLE_PLACE.removeChild(ARTICLE_PLACE.childNodes[i]);
@@ -453,15 +464,96 @@ var articleRenderer = (function() {
     	ARTICLE_PLACE.appendChild(newArticleNode);
     }
 
+    function editArticleInDOM(id,newArticle){
+    	for(var i = 0 ; i < ARTICLE_PLACE.childNodes.length; i++){
+    		if(ARTICLE_PLACE.childNodes[i].dataset.id == id){
+    			var newArticleNode = renderArticle(newArticle)
+    			ARTICLE_PLACE.replaceChild(newArticleNode,ARTICLE_PLACE.childNodes[i]);
+    		}
+    	}
+    }
+
+
+	function handleBtnClick(event) { 
+		if(event.target.id == "delete-btn"){
+			var desition = confirm("Вы уверены что хотите удалить новость?");
+			if(desition){
+				var articleNode = event.target.parentElement.parentElement;
+				var articleID = articleNode.dataset.id;
+				removeArticle(articleID);
+				return;
+			}else{
+				return;
+			}
+		}else if(event.target.id == "full-delete-btn"){
+			var desition = confirm("Вы уверены что хотите удалить новость?");
+			if(desition){
+				var articleNode = event.target.parentElement.parentElement;
+				var articleID = articleNode.dataset.id;
+				removeFullArticle(articleID);
+				return;
+			}else{
+				return;
+			}
+		}else if(event.target.id == "open-text-btn"){
+			var fullArticlePlace = document.querySelector(".news-column");
+			fullArticlePlace.style.display = "none";
+			var template = document.querySelector("#template-full-article");
+
+			var articleID = event.target.parentElement.parentElement.parentElement.dataset.id;
+			var article = articleModel.getArticle(articleID);
+
+			template.content.querySelector(".news-article").dataset.id = article.id;
+		    template.content.querySelector(".news-article-body-title").textContent = article.title;
+			template.content.querySelector(".news-article-body-content").textContent = article.content;
+			template.content.querySelector(".news-article-info-author").textContent = article.author;
+			template.content.querySelector(".news-article-info-data").textContent = formatDate(article.createdAt);
+		    var tags =  template.content.querySelector(".news-article-info-tags");
+			tags.innerHTML = "";
+
+		        for(var i = 0 ; i < article.tags.length ; i++){
+		        	var tag = document.createElement("font");
+		        	tag.innerHTML = "<font class='news-article-tag'>" + article.tags[i]+"</font>";
+		        	tags.appendChild(tag);
+		        }
+
+			var node = template.content.querySelector(".news-article").cloneNode(true);
+			fullArticlePlace = document.querySelector(".news");
+			fullArticlePlace.appendChild(node);
+		}
+	}
+
+	function userBtnClick(event){
+		if(event.target.id == "site-logo" || event.target.id == "newsName"){
+			FULL_ARTICLE_PLACE.removeChild(FULL_ARTICLE_PLACE.childNodes[3]);
+			ARTICLE_PLACE.style.display = "";
+			articleMoves.renderArticles(null,null,null);
+		}
+	}
+
+	function removeFullArticleFromDOM() {
+		FULL_ARTICLE_PLACE.removeChild(FULL_ARTICLE_PLACE.childNodes[3]);
+		ARTICLE_PLACE.style.display = "";
+		articleMoves.renderArticles(null,null,null);
+	}
+
+
+
+
 
     return {
         init: init,
         insertArticlesInDOM: insertArticlesInDOM,
         removeArticlesFromDom: removeArticlesFromDom,
         removeArticleFromDOM: removeArticleFromDOM,
-        insertArticleInDOM: insertArticleInDOM
+        removeFullArticleFromDOM: removeFullArticleFromDOM,
+        insertArticleInDOM: insertArticleInDOM,
+        editArticleInDOM: editArticleInDOM
     };
 }())
+
+
+
 
 
 
@@ -470,26 +562,51 @@ document.addEventListener('DOMContentLoaded', startApp);
 
 function startApp() {
     articleRenderer.init();
-    renderArticles();
+    articleMoves.renderArticles();
 }
 
-function renderArticles(skip,top,filterConfig) {
-    articleRenderer.removeArticlesFromDom();
+var articleMoves = (function(){
+	function renderArticles(skip,top,filterConfig) {
+	    articleRenderer.removeArticlesFromDom();
 
-    var articles = articleModel.getArticles(skip,top,filterConfig);
+	    var articles = articleModel.getArticles(skip,top,filterConfig);
 
-    articleRenderer.insertArticlesInDOM(articles);
-}
+	    articleRenderer.insertArticlesInDOM(articles);
+	}
+	return {
+		renderArticles: renderArticles
+	}
+}())
+	
 
 function addArticle(article){
-	if(articleModel.addArticle(article)){
+	if(articleModel.addArticle(article)) {
 		articleRenderer.insertArticleInDOM(article);
 	}
 }
 
 function removeArticle(id){
-	articleModel.removeArticle(id);
-	articleRenderer.removeArticleFromDOM(id);
+	if(articleModel.removeArticle(id)) {
+		articleRenderer.removeArticleFromDOM(id);
+		return true;
+	}
+	return false;
+}
+
+function removeFullArticle(id){
+	if(articleModel.removeArticle(id)) {
+		articleRenderer.removeFullArticleFromDOM();
+		return true;
+	}
+	return false;
+}
+
+function editArticle(id,newArticle){
+	if(articleModel.editArticle(id,newArticle)){
+		articleRenderer.editArticleInDOM(id,newArticle);
+		return true;
+	}
+	return false;
 }
 
 function userRenderer(userName){
@@ -513,6 +630,12 @@ function userRenderer(userName){
 
 
 
+
+
+
+
+
+
 /************************************ */
 
 
@@ -523,7 +646,6 @@ console.log(tagModel.addTag("девушки"));
 console.log(articleModel.getArticles(0,3,{author: "Всезнайка"}));
 console.log(articleModel.getArticles(0,3,null));
 console.log(articleModel.getArticles(0,5,{tags: ["мигранты","проблемы"]}));
-
 console.log(articleModel.removeArticle("1"));
 console.log(articleModel.getArticles(0,10,null));
 console.log(articleModel.addArticle({

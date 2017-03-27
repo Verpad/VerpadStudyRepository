@@ -4,14 +4,13 @@
 		<script src="https://use.fontawesome.com/bbc107b405.js"></script>
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		<link rel="shortcut icon" href="favicon.ico"/>
-		<script src="scripts.js"></script>
 		<meta charset="UTF-8">
-		<title>Turbo News</title>
+		<title>Raccoon News</title>
 	</head>
 	<body>
 		<div class="userColumn">
 			<div class="userField">
-				<h1 id = "newsName"><img src="favicon.ico" alt="Иконка)))">Turbo News</h1>
+				<img id="site-logo" src="http://cdn.edgecast.steamstatic.com/steamcommunity/public/images/avatars/df/dfff3314912a7d401e5e3e5de640dd74e744f78d_full.jpg" width="40px" height="40px" alt="Иконка)))"><h1 id = "newsName">Raccoon News</h1>
 				<font class="username"><h3><i class="fa fa-user" aria-hidden="true"></i> Имя пользователя</font></h3>
 				<font id="addnews" class="userActionText"><a href=""><p><i class="fa fa-plus" aria-hidden="true"></i> Добавить новость</font></p></a>
 				<font id="yournews" class="userActionText"><a href=""><p><i class="fa fa-list" aria-hidden="true"></i> Ваши новости</font></p></a>
@@ -41,7 +40,7 @@
 		</div>
 		 <div class="clearLeft"></div>
 		<div id="footer">
-			<p>turbonews.com</p>
+			<p>raccoonnews.com</p>
 			<p>2 курс, 7 группа | Верещако Павел | verpad-2010@mail.ru</p>
 			<p>Дата последнего изменения : 21.02.2017</p>
 		</div>
@@ -49,7 +48,7 @@
 		<template id = "template-article">
 			<div class="news-article" data-id="id">
 				<div class = "news-article-body">
-					<a href=""><h1 class="news-article-body-title">заголовок></h1></a>
+					<a href="#news"><h1 class="news-article-body-title" id="open-text-btn">заголовок></h1></a>
 					<p class="news-article-body-summary">краткое описание</p>
 				</div>
 				<hr>
@@ -61,10 +60,33 @@
 				</div>
 				<div class="article-actions userActionText">
 					<a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
-					<a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+					<button id="delete-btn"><i class="fa fa-trash-o" aria-hidden="true"></i>x</button>
 				</div>
+				<div class="clearRight"></div>
 				<div class="clearLeft"></div>
 			</div>
 		</template>
+		<template id="template-full-article">
+			<div class="news-article" data-id="id">
+				<div class = "news-article-body">
+						<h1 class="news-article-body-title" >заголовок></h1>
+						<p class="news-article-body-content">полное описание</p>
+				</div>
+				<hr>
+				<div class="newsInfo-left">
+					<p class = "news-article-info-author newsInfo">автор</p>
+					<p class = "news-article-info-data newsInfo">дата</p>
+				</div>
+				<div class="news-article-info-tags">
+				</div>
+				<div class="article-actions userActionText">
+					<a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+					<button id="full-delete-btn"><i class="fa fa-trash-o" aria-hidden="true"></i>x</button>
+				</div>
+				<div class="clearRight"></div>
+				<div class="clearLeft"></div>
+			</div>
+		</template>
+		<script src="scripts.js"></script>
 	</body>
 </html>

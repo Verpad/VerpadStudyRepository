@@ -1,10 +1,20 @@
+html {
+	position: relative;
+ 	min-height: 100%;
+}
 body {
-	background-color: #F7F1BB;
+	background-image: url("http://cs8.pikabu.ru/post_img/2016/01/28/12/1454014167136120172.jpg");
 }
 
 #newsName{
-	font-size: 20px;
+	font-size: 30px;
 	font-family: "Arial";
+	display: inline;
+	margin-left: 10px;
+	cursor: pointer;
+}
+#site-logo{
+	cursor: pointer;
 }
 .userColumn{
 	position: fixed;
@@ -12,7 +22,7 @@ body {
 	margin-right: 10px;
 }
 .userField {
-	background-color: lightyellow;
+	background-color: rgba(255,248,153,0.7);;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	padding: 10px;
 	border-radius: 0px;
@@ -23,7 +33,7 @@ body {
 		display: block;
 	}
 #filter{
-	background-color: lightyellow;
+	background-color: rgba(255,248,153,0.7);;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	padding: 10px;
 	margin-top: 10px;
@@ -37,7 +47,7 @@ body {
 }
 .news-article{
 	border-radius: 0px;
-	background-color: lightyellow;
+	background-color: rgba(255,248,200,1);
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	padding: 10px;
 	border: 0px ;
@@ -74,9 +84,8 @@ body {
 	padding-left: 10px;
 	float: left;
 }
-.article-actions{
-	float: left;
-	margin-left: 30%;
+.article-actions {
+	float: right;
 }
 .news-article-body-title{
 	font-family: "Arial";
@@ -85,6 +94,7 @@ body {
 .news-column {
 	width: 100%;
 	float: left;
+	margin-bottom: 120px;
 }
 .clearLeft{
 	clear: left;
@@ -97,8 +107,10 @@ body {
 	box-shadow: 0 0 5px rgba(0,0,0,1);
 	text-align: center;
 	padding: 5px;
-	bottom:0px;
+	bottom: 0;
 	margin: 0px;
+	width: 100%;
+	position: absolute;
 }
 
 a {
@@ -111,7 +123,7 @@ a:hover {
     text-decoration: underline; /* Добавляем подчеркивание */
 }
 
-@media (max-width:850px){
+/*@media (max-width:850px){
 	.news{
 		width: 100%;
 		margin-left: 0%;
@@ -134,9 +146,9 @@ a:hover {
 		margin-top: 0px;
 	}
 	.userActionText{
-		display: none;
+		display: ;
 	}
-}
+}*/
 
 @media (max-width:400px) {
 	.newsInfo-left{
