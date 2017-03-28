@@ -4,6 +4,7 @@
 		<script src="https://use.fontawesome.com/bbc107b405.js"></script>
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		<link rel="shortcut icon" href="favicon.ico"/>
+		<link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
 		<meta charset="UTF-8">
 		<title>Raccoon News</title>
 	</head>
@@ -12,9 +13,10 @@
 			<div class="userField">
 				<img id="site-logo" src="http://cdn.edgecast.steamstatic.com/steamcommunity/public/images/avatars/df/dfff3314912a7d401e5e3e5de640dd74e744f78d_full.jpg" width="40px" height="40px" alt="Иконка)))"><h1 id = "newsName">Raccoon News</h1>
 				<font class="username"><h3><i class="fa fa-user" aria-hidden="true"></i> Имя пользователя</font></h3>
-				<font id="addnews" class="userActionText"><a href=""><p><i class="fa fa-plus" aria-hidden="true"></i> Добавить новость</font></p></a>
-				<font id="yournews" class="userActionText"><a href=""><p><i class="fa fa-list" aria-hidden="true"></i> Ваши новости</font></p></a>
-				<font id="quit" class="userActionText"><a href=""><p><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</font></p></a>
+				<font id="addnews" class="userActionText"><a href=""><p><i class="fa fa-plus" aria-hidden="true"></i> Добавить новость</p></font></a>
+				<font id="yournews" class="userActionText"><a href=""><p><i class="fa fa-list" aria-hidden="true"></i> Ваши новости</p></font></a>
+				<font id="quit" class="userActionText"><p onclick="userRenderer.logInOut(null)"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</p></font>
+				<button id="login-button" onclick="showPopUp('block')">Авторизироваться</button>
 			</div>
 			<font class="userActionText"><div id = "filter">
 				<p><b>Фильтр новостей: </b></p>
@@ -44,6 +46,14 @@
 			<p>2 курс, 7 группа | Верещако Павел | verpad-2010@mail.ru</p>
 			<p>Дата последнего изменения : 21.02.2017</p>
 		</div>
+		<div onclick="showPopUp('none')" id="wrap"></div>
+		<div id="popup-window">
+			<form class="login-form">
+				<p>Логин: <input maxlength="25"  name="login"></p>
+   				<p>Пароль: <input type="password" maxlength="25" name="password"></p>
+   			</form>
+   			<button id="login-confirm-button" onclick="userRenderer.logInUser()">Войти</button>
+		</div>
 		<!-- templates-->
 		<template id = "template-article">
 			<div class="news-article" data-id="id">
@@ -59,8 +69,8 @@
 				<div class="news-article-info-tags">
 				</div>
 				<div class="article-actions userActionText">
-					<a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
-					<button id="delete-btn"><i class="fa fa-trash-o" aria-hidden="true"></i>x</button>
+					<button id="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+					<button id="delete-btn" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 				</div>
 				<div class="clearRight"></div>
 				<div class="clearLeft"></div>
@@ -80,11 +90,16 @@
 				<div class="news-article-info-tags">
 				</div>
 				<div class="article-actions userActionText">
-					<a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
-					<button id="full-delete-btn"><i class="fa fa-trash-o" aria-hidden="true"></i>x</button>
+					<button id="full-edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+					<button id="full-delete-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 				</div>
 				<div class="clearRight"></div>
 				<div class="clearLeft"></div>
+			</div>
+		</template>
+		<template id="template-edit-article">
+			<div class="news-article-edit">
+
 			</div>
 		</template>
 		<script src="scripts.js"></script>

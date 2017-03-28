@@ -1,14 +1,16 @@
 html {
 	position: relative;
  	min-height: 100%;
+ 	font-family: 'Exo 2', sans-serif;
 }
 body {
+	width: 100%;
 	background-image: url("http://cs8.pikabu.ru/post_img/2016/01/28/12/1454014167136120172.jpg");
 }
 
 #newsName{
 	font-size: 30px;
-	font-family: "Arial";
+	font-family: 'Exo 2', sans-serif;
 	display: inline;
 	margin-left: 10px;
 	cursor: pointer;
@@ -31,6 +33,7 @@ body {
 }
 .userActionText{
 		display: block;
+		cursor: pointer;
 	}
 #filter{
 	background-color: rgba(255,248,153,0.7);;
@@ -56,7 +59,7 @@ body {
 }
 .news-article-body {
 	height: 70%;
-	font-family:"Times New Roman";
+	font-family: 'Exo 2', sans-serif;
 	font-size:1.125em;
 }
 .newsInfo{
@@ -88,13 +91,20 @@ body {
 	float: right;
 }
 .news-article-body-title{
-	font-family: "Arial";
+	font-family: 'Exo 2', sans-serif;
 	font-size: 1.125em;
 }
 .news-column {
 	width: 100%;
 	float: left;
 	margin-bottom: 120px;
+}
+.login-form{
+	background-color: (0,0,100,0.8);
+	position: static;
+	width: 50%;
+	margin: auto;
+	display: block;
 }
 .clearLeft{
 	clear: left;
@@ -112,7 +122,36 @@ body {
 	width: 100%;
 	position: absolute;
 }
-
+#wrap{
+	display: none;
+	opacity: 0.8;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding: 16px;
+	background-color: rgba(1, 1, 1, 0.725);
+	z-index: 100;
+	overflow: auto;
+}
+#popup-window{
+	width: 400px;
+	height: 200px;
+	margin: auto;
+	display: none;
+	background: #fff;
+	z-index: 200;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding: 16px;
+}
+#login-confirm-button{
+	margin-left: 50%;
+}
 a {
     color: rgb(0,0,0); /* Цвет обычной ссылки */ 
     text-decoration: none; /* Убираем подчеркивание у ссылок */

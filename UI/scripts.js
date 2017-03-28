@@ -400,6 +400,8 @@ var articleRenderer = (function() {
 
 		userField = articleListNode = document.querySelector('.userField');
 		userField.addEventListener('click', userBtnClick);
+
+
 	}
 
 	function renderArticles(articles) {
@@ -446,6 +448,19 @@ var articleRenderer = (function() {
 
     function insertArticlesInDOM(articles) {
         var articlesNodes = renderArticles(articles);
+
+        if(userRenderer.getUserName()	== null){
+				var elems = document.getElementsByClassName("article-actions");
+					for (var i = 0; i < elems.length; i++){
+						elems[i].style.display = "none";
+					}
+			}else{
+				var elems = document.getElementsByClassName("article-actions");
+					for (var i = 0; i < elems.length; i++){
+						elems[i].style.display = "";
+					}
+			}
+
         articlesNodes.forEach(function (node) {
             ARTICLE_PLACE.appendChild(node);
         });
@@ -475,20 +490,32 @@ var articleRenderer = (function() {
 
 
 	function handleBtnClick(event) { 
-		if(event.target.id == "delete-btn"){
+		if(event.target.id == "delete-btn" || event.target.parentElement.id == "delete-btn"){
+
 			var desition = confirm("Вы уверены что хотите удалить новость?");
 			if(desition){
-				var articleNode = event.target.parentElement.parentElement;
+				var articleNode;
+				if(event.target.parentElement.id == "delete-btn"){
+					articleNode = event.target.parentElement.parentElement.parentElement;
+				}else{
+					articleNode = event.target.parentElement.parentElement;
+				}
 				var articleID = articleNode.dataset.id;
 				removeArticle(articleID);
+				articleMoves.renderArticles();
 				return;
 			}else{
 				return;
 			}
-		}else if(event.target.id == "full-delete-btn"){
+		}else if(event.target.id == "full-delete-btn" || event.target.parentElement.id == "full-delete-btn"){
 			var desition = confirm("Вы уверены что хотите удалить новость?");
 			if(desition){
-				var articleNode = event.target.parentElement.parentElement;
+				var articleNode;
+				if(event.target.parentElement.id == "full-delete-btn"){
+					articleNode = event.target.parentElement.parentElement.parentElement;
+				}else{
+					articleNode = event.target.parentElement.parentElement;
+				}
 				var articleID = articleNode.dataset.id;
 				removeFullArticle(articleID);
 				return;
@@ -519,15 +546,50 @@ var articleRenderer = (function() {
 
 			var node = template.content.querySelector(".news-article").cloneNode(true);
 			fullArticlePlace = document.querySelector(".news");
+
+			if(userRenderer.getUserName()	== null){
+				var elems = document.getElementsByClassName("article-actions");
+					for (var i = 0; i < elems.length; i++){
+						elems[i].style.display = "none";
+					}
+			}else{
+				var elems = document.getElementsByClassName("article-actions");
+					for (var i = 0; i < elems.length; i++){
+						elems[i].style.display = "";
+					}
+			}
+
 			fullArticlePlace.appendChild(node);
+
+			if(userRenderer.getUserName()	== null){
+				var elems = document.getElementsByClassName("article-actions");
+					for (var i = 0; i < elems.length; i++){
+						elems[i].style.display = "none";
+					}
+			}else{
+				var elems = document.getElementsByClassName("article-actions");
+					for (var i = 0; i < elems.length; i++){
+						elems[i].style.display = "";
+					}
+			}
+		}else if(event.target.id == "edit-btn" || event.target.parentElement.id == "edit-btn"){
+			var editArticlePlace = document.querySelector(".news-column");
+			editArticlePlace.style.display = "none";
+			var template = document.querySelector("#template-edit-article");
+
+			
+
 		}
 	}
 
 	function userBtnClick(event){
 		if(event.target.id == "site-logo" || event.target.id == "newsName"){
-			FULL_ARTICLE_PLACE.removeChild(FULL_ARTICLE_PLACE.childNodes[3]);
-			ARTICLE_PLACE.style.display = "";
-			articleMoves.renderArticles(null,null,null);
+			if(FULL_ARTICLE_PLACE.childNodes.length == 4){
+				FULL_ARTICLE_PLACE.removeChild(FULL_ARTICLE_PLACE.childNodes[3]);
+				ARTICLE_PLACE.style.display = "";
+				articleMoves.renderArticles(null,null,null);
+			}
+			return;
 		}
 	}
 
@@ -553,7 +615,10 @@ var articleRenderer = (function() {
 }())
 
 
-
+function showPopUp(state){
+	document.getElementById('popup-window').style.display = state;			
+	document.getElementById('wrap').style.display = state; 			
+}
 
 
 
@@ -563,6 +628,7 @@ document.addEventListener('DOMContentLoaded', startApp);
 function startApp() {
     articleRenderer.init();
     articleMoves.renderArticles();
+    userRenderer.logInOut("Верещако Павел");
 }
 
 var articleMoves = (function(){
@@ -572,7 +638,23 @@ var articleMoves = (function(){
 	    var articles = articleModel.getArticles(skip,top,filterConfig);
 
 	    articleRenderer.insertArticlesInDOM(articles);
+
+	    if(userRenderer.getUserName()	== null){
+				var elems = document.getElementsByClassName("article-actions");
+					for (var i = 0; i < elems.length; i++){
+						elems[i].style.display = "none";
+					}
+		}else{
+			var elems = document.getElementsByClassName("article-actions");
+				for (var i = 0; i < elems.length; i++){
+					elems[i].style.display = "";
+				}
+		}
+
 	}
+
+
+
 	return {
 		renderArticles: renderArticles
 	}
@@ -609,23 +691,84 @@ function editArticle(id,newArticle){
 	return false;
 }
 
-function userRenderer(userName){
-	if(userName == null){
-		var userField = document.getElementsByClassName("username");
-		userField[1].innerHTML = '<h3><i class="fa fa-user" aria-hidden="true"></i> Гость</font></h3>';
-		userField = document.getElementsByClassName("userActionText");
-		for(var i = 0 ; i < userField.length ; i++){
-			userField[i].style.display = "none";
-		}
-	}else{
-		var userField = document.getElementsByClassName("username");
-		userField[1].innerHTML = '<h3><i class="fa fa-user" aria-hidden="true"></i> '+ userName +'</font></h3>';
-		userField = document.getElementsByClassName("userActionText");
-		for(var i = 0 ; i < userField.length ; i++){
-			userField[i].style.display = "";
+
+var userRenderer = (function(){
+	var userName;
+	var users = [
+	{
+		login: "Verpad",
+		password: "89914020",
+		name: "Верещако Павел"
+	},
+	{
+		login: "Nova",
+		password: "1488",
+		name: "Шавель Илья"
+	},
+	{
+		login: "NightFucker",
+		password: "mymom№1",
+		name: "Сахарчук Станислав"
+	},
+	{
+		login: "Hashut",
+		password: "warhammer40000",
+		name: "Янушкевич Андрей"
+	},
+	{
+		login: "Fuffelshmerz",
+		password: "228",
+		name: "Херндлхоффер Никита"
+	}];
+
+	function init(yourName){
+		userName = yourName;
+	}
+
+	function logInOut(yourName){
+		userName = yourName;
+		var logBtn = document.getElementById("login-button");
+
+		if(yourName == null){
+			var userField = document.getElementsByClassName("username");
+			userField[1].innerHTML = '<h3><i class="fa fa-user" aria-hidden="true"></i> Гость</font></h3>';
+			userField = document.getElementsByClassName("userActionText");
+			for(var i = 0 ; i < userField.length ; i++){
+				userField[i].style.display = "none";
+			}
+			logBtn.style.display = "";
+		}else{
+			var userField = document.getElementsByClassName("username");
+			userField[1].innerHTML = '<h3><i class="fa fa-user" aria-hidden="true"></i> '+ userName +'</font></h3>';
+			userField = document.getElementsByClassName("userActionText");
+			for(var i = 0 ; i < userField.length ; i++){
+				userField[i].style.display = "";
+			}
+			logBtn.style.display = "none";
 		}
 	}
-}
+
+	function logInUser(){
+		var inputs = document.getElementsByTagName("input");
+		for(var i = 0 ; i < users.length ; i++){
+			if(users[i].login.toLowerCase() == inputs[3].value.toLowerCase() && users[i].password == inputs[4].value){
+				logInOut(users[i].name);
+				showPopUp("none");
+			}
+		}
+	}
+
+	function getUserName(){
+		return userName;
+	}
+	return {
+		init: init,
+		logInOut: logInOut,
+		getUserName: getUserName,
+		logInUser: logInUser
+	}
+}())
+
 
 
 
