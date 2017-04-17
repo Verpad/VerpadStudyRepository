@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://use.fontawesome.com/bbc107b405.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<link rel="shortcut icon" href="favicon.ico"/>
+		<link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+		<meta charset="UTF-8">
+		<title>Raccoon News</title>
+	</head>
+	<body>
+		<div class="userColumn">
+			<div class="userField">
+				<img id="site-logo" src="http://cdn.edgecast.steamstatic.com/steamcommunity/public/images/avatars/df/dfff3314912a7d401e5e3e5de640dd74e744f78d_full.jpg" width="40px" height="40px" alt="Иконка)))"><h1 id = "newsName">Raccoon News</h1>
+				<font class="username"><h3><i class="fa fa-user" aria-hidden="true"></i> Имя пользователя</font></h3>
+				<font id="addnews" onclick="userRenderer.addArticle()" class="userActionText"><p><i class="fa fa-plus" aria-hidden="true"></i> Добавить новость</p></font>
+				<font id="yournews" class="userActionText"><a href=""><p><i class="fa fa-list" aria-hidden="true"></i> Ваши новости</p></font></a>
+				<font id="quit" class="userActionText"><p onclick="userRenderer.logInOut(null)"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</p></font>
+				<button id="login-button" onclick="showPopUp('block')">Авторизироваться</button>
+			</div>
+			<font class="userActionText">
+				<div id = "filter">
+					<form id="filter-form">
+						<p><b>Фильтр новостей: </b></p>
+						<p>Имя автора: <input list="authors" name="author-input">
+							<datalist id="authors">
+							    <option>Верещако Павел</option>
+							    <option>Сахарчук Станислав</option>
+							    <option>Шавель Илья</option>
+							    <option>Янушкевич Андрей</option>
+							    <option>Херндлхоффер Никита</option>
+							</datalist>
+						</p>
+						<p>Дата: <br>от: <input type="datetime-local" name="first-date-input"><br>до: <input type="datetime-local" name="last-date-input"></p>
+						<p>Теги: <input list="tags" name="tags-input">
+							<datalist id="tags">
+						   	</datalist>
+					    </p>
+					</form>
+					<p style="text-align: center"><button onclick="filterModel.applyFilter()">Найти</button>
+				</div>
+			</font>
+		</div>
+		<div class="clearLeft"></div>
+		<div class="news">
+			<div class="news-column">
+			</div>
+		</div>
+		<div class="clearLeft"></div>
+		<div id="pagination">
+			<button id="prev-page-btn" onclick="paginationModel.prevPage()"><</button>
+			<label id="current-page-number"></label>
+			<button id="next-page-btn" onclick="paginationModel.nextPage()">></button>
+		</div>
+		<div id="footer">
+			<p>raccoonnews.com</p>
+			<p>2 курс, 7 группа | Верещако Павел | verpad-2010@mail.ru</p>
+			<p>Дата последнего изменения : 09.04.2017</p>
+		</div>
+		<div onclick="showPopUp('none')" id="wrap"></div>
+		<div id="popup-window">
+			<form class="login-form">
+				<p>Логин: <input maxlength="25"  name="login"></p>
+   				<p>Пароль: <input type="password" maxlength="25" name="password"></p>
+   			</form>
+   			<button id="login-confirm-button" onclick="userRenderer.logInUser()">Войти</button>
+		</div>
+		<!-- templates-->
+		<template id = "template-article">
+			<div class="news-article" data-id="id">
+				<div class = "news-article-body">
+					<a href="#news"><h1 class="news-article-body-title" id="open-text-btn">заголовок></h1></a>
+					<p class="news-article-body-summary">краткое описание</p>
+				</div>
+				<hr>
+				<div class="newsInfo-left">
+					<p class = "news-article-info-author newsInfo">автоhttps://medium.com/r/?url=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FHTML%2FElement%2Ftextareaр</p>
+					<p class = "news-article-info-data newsInfo">дата</p>
+				</div>
+				<div class="news-article-info-tags">
+				</div>
+				<div class="article-actions userActionText">
+					<button id="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+					<button id="delete-btn" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+				</div>
+				<div class="clearRight"></div>
+				<div class="clearLeft"></div>
+			</div>
+		</template>
+		<template id="template-full-article">
+			<div class="news-article" data-id="id">
+				<div class = "news-article-body">
+						<h1 class="news-article-body-title" >заголовок></h1>
+						<p class="news-article-body-content">полное описание</p>
+				</div>
+				<hr>
+				<div class="newsInfo-left">
+					<p class = "news-article-info-author newsInfo">автор</p>
+					<p class = "news-article-info-data newsInfo">дата</p>
+				</div>
+				<div class="news-article-info-tags">
+				</div>
+				<div class="article-actions userActionText">
+					<button id="full-edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+					<button id="full-delete-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+				</div>
+				<div class="clearRight"></div>
+				<div class="clearLeft"></div>
+			</div>
+		</template>
+		<template id="template-edit-article">
+			<div class="news-article-edit">
+				<form id="edit-form" target="myIFR">
+					<p>ID: <input type="text" name="article-id-input" value="231" disabled="disabled"></p>
+					<p>Автор: <input type="text" name="article-author-input" value="автор" disabled="disabled"></p>
+					<p>Заглавие новости: <textarea name="article-title-input" required=""></textarea></p>
+					<p>Список тегов: <input type="text" name="article-tags-input" required=""></p>
+					<p>Краткое описание: <textarea name="article-summary-input" required=""></textarea></p>
+					<p>Текст новости: <textarea type="textarea" name="article-content-input" required=""></textarea></p>
+					<p>Дата создания: <input type="text" name="article-time-input" value="время" disabled="disabled"></p>
+					<p><input type="submit" onclick="takeArticleFromInputAndEdit()" name="" value="Принять"></p>
+				</form>
+				<button id="input-exit-btn" onclick="articleRenderer.goToMainPage()">На главную</button>
+			</div>
+		</template>
+		<template id="template-add-article">
+			<div class="news-article-add">
+				<form id="add-form" target="myIFR">
+					<p>ID: <input type="text" name="article-id-input" value="231" disabled="disabled"></p>
+					<p>Автор: <input type="text" name="article-author-input" value="автор" disabled="disabled"></p>
+					<p>Заглавие новости: <textarea name="article-title-input" required=""></textarea></p>
+					<p>Список тегов: <input type="text" name="article-tags-input" required=""></p>
+					<p>Краткое описание: <textarea name="article-summary-input" required=""></textarea></p>
+					<p>Текст новости: <textarea type="textarea" name="article-content-input" required=""></textarea></p>
+					<p>Дата создания: <input type="text" name="article-time-input" value="время" disabled="disabled"></p>
+					<p><input type="submit" onclick="takeArticleFromInputAndAdd()" name="" value="Принять"></p>
+				</form>
+				<iframe name="myIFR" style="display: none"></iframe>
+				<button id="input-exit-btn" onclick="articleRenderer.goToMainPage()">На главную</button>
+			</div>
+		</template>
+		<iframe name="myIFR" style="display: none"></iframe>
+		<script src="scripts.js"></script>
+	</body>
+</html>
