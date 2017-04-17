@@ -489,7 +489,6 @@ var articleRenderer = (function() {
 		}
 	}
 
-
 	function handleBtnClick(event) {
 		if (event.target.id == "delete-btn" || event.target.parentElement.id == "delete-btn") {
 
@@ -621,8 +620,6 @@ var articleRenderer = (function() {
 		articleMoves.renderArticles(0, 5, filterModel.getFilterConfig);
 	}
 
-
-
 	return {
 		init: init,
 		insertArticlesInDOM: insertArticlesInDOM,
@@ -636,13 +633,10 @@ var articleRenderer = (function() {
 	};
 }())
 
-
 function showPopUp(state) {
 	document.getElementById('popup-window').style.display = state;
 	document.getElementById('wrap').style.display = state;
 }
-
-
 
 document.addEventListener('DOMContentLoaded', startApp);
 
@@ -674,10 +668,6 @@ function startApp() {
 	} else {
 		paginationModel.getFromStorage();
 	}
-
-	
-
-	
 }
 
 var articleMoves = (function() {
@@ -701,13 +691,10 @@ var articleMoves = (function() {
 		}
 	}
 
-
-
 	return {
 		renderArticles: renderArticles
 	}
 }())
-
 
 function addArticle(article) {
 	if (articleModel.addArticle(article)) {
@@ -770,7 +757,7 @@ function takeArticleFromInputAndEdit() {
 
 	if (editArticle(newArticle.id, newArticle)) {
 		articleRenderer.goToMainPage();
-		articleMoves.renderArticles((paginationModel.getCurrentPage()-1)*paginationModel.getArticlesPerPageCount(), 5, filterModel.getFilterConfig());
+		articleMoves.renderArticles((paginationModel.getCurrentPage() - 1) * paginationModel.getArticlesPerPageCount(), 5, filterModel.getFilterConfig());
 	}
 }
 
@@ -804,7 +791,6 @@ function takeArticleFromInputAndAdd() {
 	}
 
 }
-
 
 var userRenderer = (function() {
 	var userName;
@@ -1056,21 +1042,21 @@ var paginationModel = (function() {
 		articleMoves.renderArticles(ARTICLES_PER_PAGE * (currentPage - 1), ARTICLES_PER_PAGE, filterModel.getFilterConfig());
 		if (currentPage == 1) {
 			hidePrevPageBtn();
-		}else{
+		} else {
 			showPrevPageBtn();
 		}
 		if (ARTICLES_PER_PAGE * currentPage >= totalArticlesCount) {
 			hideNextPageBtn();
-		}else{
+		} else {
 			showNextPageBtn();
 		}
 	}
 
-	function getCurrentPage(){
+	function getCurrentPage() {
 		return currentPage;
 	}
 
-	function getArticlesPerPageCount(){
+	function getArticlesPerPageCount() {
 		return ARTICLES_PER_PAGE;
 	}
 
@@ -1084,7 +1070,3 @@ var paginationModel = (function() {
 		getArticlesPerPageCount: getArticlesPerPageCount
 	}
 }())
-
-
-
-/************************************ */
